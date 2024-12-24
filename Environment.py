@@ -88,7 +88,7 @@ class Environment:
                 GoodPoint.kill()
                 self.good_points_group.remove(obstacle)
         return False
-        # self.spawn_timer += 1  # Optional, for tracking spawn frequency
+        # self.spawn_timer += 1 `` # Optional, for tracking spawn frequency
         # Check for off-screen obstacles and remove them
         # for obstacle in self.obstacles_group:
         #     if obstacle.rect.top > 800:
