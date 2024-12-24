@@ -70,10 +70,9 @@ class game:
             env.move(action=action)
             done = env.update()
             if done:
-                # print end of game
-                #do you wan
-                env.reset()
-            background.render(env)
+                background.end_screen()
+            else:
+                background.render(env)
             pygame.display.flip()
 
         pygame.quit()

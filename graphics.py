@@ -4,6 +4,8 @@ from Environment import *
 GRAY = (128, 128, 128)
 WHITE = (255, 255, 255)
 BLACK = (0,0,0)
+BUTTON_COLOR = (50, 50, 255)  # Blue button color
+BUTTON_HOVER_COLOR = (100, 100, 255)  # Button hover color
 class Background:
     def __init__(self, width, height):
         self.width = width
@@ -86,7 +88,69 @@ class Background:
         self.display.blit(self.header_surf, (0, 0))  # Draw the header
         self.display.blit(self.surface, (0, 100))  # Draw the main play surface
 
+    def end_screen(self):
+        # Draw the background for the end screen (gray or any other color)
+        
 
+        # Create a white square in the middle of the screen
+        square_width = 400
+        square_height = 400
+        square_rect = pygame.Rect((self.width // 2 - square_width // 2, self.height // 2 - square_height // 2), (square_width, square_height))
+        pygame.draw.rect(self.display, WHITE, square_rect)
+
+# Load and position the image (assuming you have a "image.png" file)
+        image = pygame.image.load('pics\gameover.png').convert_alpha()  # Replace with the actual image path
+
+        # Scale the image to fit inside the square if needed (optional)
+        #image = pygame.transform.scale(image, (350, 350))  # Scale to 100x100 px
+
+        # Position the image at the top center of the square
+        image_rect = image.get_rect(center=(square_rect.centerx, square_rect.top + image.get_height() // 2 ))
+
+        # Draw the image
+        self.display.blit(image, image_rect)
+
+
+
+
+
+
+        
+        # Draw the "Play Again" and "Quit" buttons
+        play_again_button = pygame.Rect(self.width // 2 - 150, self.height // 2 + 50, 300, 50)
+        quit_button = pygame.Rect(self.width // 2 - 150, self.height // 2 + 120, 300, 50)
+
+        # Draw buttons
+        pygame.draw.rect(self.display, BUTTON_COLOR, play_again_button)
+        pygame.draw.rect(self.display, BUTTON_COLOR, quit_button)
+
+        # Write button text
+        font = pygame.font.SysFont("arial", 36)
+        play_again_text = font.render("Play Again", True, WHITE)
+        quit_text = font.render("Quit", True, WHITE)
+
+        self.display.blit(play_again_text, (self.width // 2 - play_again_text.get_width() // 2, self.height // 2 + 55))
+        self.display.blit(quit_text, (self.width // 2 - quit_text.get_width() // 2, self.height // 2 + 130))
+
+        # Update the display
+        pygame.display.flip()
+
+        # Event handling for buttons
+        mouse_pos = pygame.mouse.get_pos()
+        mouse_pressed = pygame.mouse.get_pressed()
+
+        # Check if the mouse clicks on any button
+        if play_again_button.collidepoint(mouse_pos):
+            if mouse_pressed[0]:  # Left click
+                from game import game
+                print(self.score)
+                game.loop()
+
+
+        if quit_button.collidepoint(mouse_pos):
+            if mouse_pressed[0]:  # Left click
+                pygame.quit()
+                exit()  # Call the quit callback function
 
             
     
