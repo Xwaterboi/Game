@@ -37,7 +37,7 @@ player = AI_Agent(dqn_model)
 
 class Game:
     def __init__(self):
-        self.score = 0
+        pass
 
     def start_new_game(self):
         """Start a new game session."""
@@ -45,7 +45,7 @@ class Game:
 
     def loop(self):
         """Main game loop."""
-        self.score = 0
+        #self.score = 0
         background = Background(WINDOWWIDTH, WINDOWHEIGHT)
         env = Environment()
         background.render(env)
@@ -84,7 +84,7 @@ class Game:
             if done:
                 #play_again = background.end_screen()
                 #if play_again == 1:
-                print(f"Score: {self.score}")
+                print(f"Score: {env.score}")
                 self.start_new_game()  # Corrected to avoid recursion issues
                 
             else:
