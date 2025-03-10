@@ -2,9 +2,10 @@ import pygame
 import sprites
 from graphics import Background
 import random
-from Human_Agent import Human_Agent
 from Environment import Environment
 
+from Human_Agent import Human_Agent
+from Random_Agent import Random_Agent
 
 
 pygame.init()
@@ -53,9 +54,9 @@ class game:
                     pygame.quit()
                     exit()
             elapsed_time = pygame.time.get_ticks() - start_time
-            if elapsed_time >= self.duration :
-                print("30 seconds! win!")
-                win=True
+            #if elapsed_time >= self.duration :
+              #  print("30 seconds! win!")
+                #win=True
                 
                 
             if env.score >=5:
@@ -64,24 +65,14 @@ class game:
                 
 
             action = player.getAction(events)  
-
-
-
-
-
-
-
-
-
-
-
-
-
             env.move(action=action)
-            done = env.update()
-            done=win
+            done = env.update() or win
+           #done=win
             if done:
-                background.end_screen()
+                PlayAgain=background.end_screen()
+                if(PlayAgain==1):
+                    print(self.score)
+                    game.loop()
             else:
                 background.render(env)
             pygame.display.flip()

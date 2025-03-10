@@ -23,7 +23,7 @@ class Car(pygame.sprite.Sprite):
     def update(self):
         self.rect.x = self.lane * LANEWIDTH + (LANEWIDTH - self.rect.width) // 2  # Center in lane
         self.rect.y = WINDOW_HEIGHT - self.rect.height - 110  # Position at bottom with some padding
-        print(f"Car position: x={self.rect.x}, y={self.rect.y}")
+        print(f"Car position: x={self.rect.x}")#, y={self.rect.y}
     
     def draw(self, surface):
         surface.blit(self.image, self.rect)
@@ -35,7 +35,8 @@ class Obstacle(pygame.sprite.Sprite):
         self.image = pygame.image.load('pics/obstacle.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (50, 50))  # Load obstacle image
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(0, 4) * LANEWIDTH + (LANEWIDTH - self.rect.width) // 2  # Random lane
+        self.lane=random.randint(0, 4)
+        self.rect.x =  self.lane* LANEWIDTH + (LANEWIDTH - self.rect.width) // 2  # Random lane
         self.rect.y = -100  # Random height above the screen
         self.speed = 5  # Speed at which the obstacle moves down
 
@@ -50,7 +51,8 @@ class GoodPoint(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load('pics/coin.png').convert_alpha()  # Load good point image
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(0, 4) * LANEWIDTH + (LANEWIDTH - self.rect.width) // 2  # Random lane
+        self.lane=random.randint(0, 4)
+        self.rect.x = self.lane * LANEWIDTH + (LANEWIDTH - self.rect.width) // 2  # Random lane
         self.rect.y = -100  # Random height above the screen; random.randint(-200, -50)
         self.speed = 5  # Speed at which the good point moves down
 

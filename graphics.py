@@ -1,5 +1,6 @@
 import pygame
 from Environment import *
+#from game import game
 # Colors
 GRAY = (128, 128, 128)
 WHITE = (255, 255, 255)
@@ -98,7 +99,7 @@ class Background:
         square_rect = pygame.Rect((self.width // 2 - square_width // 2, self.height // 2 - square_height // 2), (square_width, square_height))
         pygame.draw.rect(self.display, WHITE, square_rect)
 
-# Load and position the image (assuming you have a "image.png" file)
+        # Load and position the image (assuming you have a "image.png" file)
         image = pygame.image.load('pics\gameover.png').convert_alpha()  # Replace with the actual image path
 
         # Scale the image to fit inside the square if needed (optional)
@@ -110,12 +111,6 @@ class Background:
         # Draw the image
         self.display.blit(image, image_rect)
 
-
-
-
-
-
-        
         # Draw the "Play Again" and "Quit" buttons
         play_again_button = pygame.Rect(self.width // 2 - 150, self.height // 2 + 50, 300, 50)
         quit_button = pygame.Rect(self.width // 2 - 150, self.height // 2 + 120, 300, 50)
@@ -142,7 +137,8 @@ class Background:
         # Check if the mouse clicks on any button
         if play_again_button.collidepoint(mouse_pos):
             if mouse_pressed[0]:  # Left click
-                from game import game
+                return 1
+                
                 print(self.score)
                 game.loop()
 
