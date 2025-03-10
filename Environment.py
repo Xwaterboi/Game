@@ -1,5 +1,5 @@
 from sprites import *
-
+import torch
 import graphics as D
 class Environment:
     def __init__(self) -> None:
@@ -27,14 +27,27 @@ class Environment:
 
        
 
-
+    def Max_obstacle_check(self):
+        """Checks if there are more than 10 obstacles in the game."""
+        if len(self.obstacles_group) >= 10:
+            return True  # More than 10 obstacles exist
+        else:
+            return False # 10 or fewer obstacles exist
+            
+    def Max_GoodPoints_check(self):
+        """Checks if there are more than 10 good points in the game."""
+        if len(self.good_points_group) >= 5:
+            return True  # More than 5 points exist
+        else:
+            return False # 5 or fewer points exist
+        
     def add_obstacle(self):
         spawn_probability = 0.017  
         if random.random() < spawn_probability:
             obstacle = Obstacle()
             obstacle.rect.x = random.randrange(0, 400, 80)
             obstacle.rect.y = -obstacle.rect.height  # Spawn at the top of the screen
-            if self._check_obstacle_placement(obstacle):
+            if self._check_obstacle_placement(obstacle) and self.Max_obstacle_check() is False:
                 self.obstacles_group.add(obstacle)
 
 
@@ -43,7 +56,8 @@ class Environment:
         spawn_good_point_probability = 0.007  
         if random.random() < spawn_good_point_probability:
             good_point = GoodPoint()
-            self.good_points_group.add(good_point)
+            if self._check_obstacle_placement(good_point) and self.Max_GoodPoints_check() is False:
+                self.good_points_group.add(good_point)
 
     def car_colide(self) -> bool :
         colides = pygame.sprite.spritecollide(self.car,self.obstacles_group,False)
@@ -65,13 +79,35 @@ class Environment:
         print(self.score)
         game.loop()
 
+    def state(self):
+        state_list = []
 
+        # 1. Car's Lane
+        state_list.append(self.car.lane)  # Add the car's lane 0-4
+
+        # 2. Obstacle Positions
+        for obstacle in self.obstacles_group:
+            state_list.append(obstacle.lane)  # X-coordinate of obstacle
+            state_list.append(obstacle.rect.y/100)  # Y-coordinate of obstacle
+        if (len(state_list)<21):
+            state_list.append(-1)  
+            state_list.append(-1)  
+        # 3. Good Point Positions
+        for good_point in self.good_points_group:
+            state_list.append(good_point.lane)  # X-coordinate of good point
+            state_list.append(good_point.rect.y/100)  # Y-coordinate of good point
+        if (len(state_list)<21):
+            state_list.append(-1)  
+            state_list.append(-1)
+
+
+        return torch.tensor(state_list, dtype=torch.float32)
 
     def update (self):
         
         self.add_obstacle()
         self.add_coins()
-        if self.car_colide() is False:
+        if not self.car_colide():
            return True
         self.AddGood()
 

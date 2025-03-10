@@ -1,9 +1,3 @@
-# class Agent
-
-#    def getAction (events): -> action (-1 / 1)
-
-#class Human_agen (Agent)
-
 import pygame
 
 class Human_Agent:
