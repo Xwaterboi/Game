@@ -89,14 +89,14 @@ class Environment:
         for obstacle in self.obstacles_group:
             state_list.append(obstacle.lane)  # X-coordinate of obstacle
             state_list.append(obstacle.rect.y/100)  # Y-coordinate of obstacle
-        if (len(state_list)<21):
+        while (len(state_list)<21):
             state_list.append(-1)  
             state_list.append(-1)  
         # 3. Good Point Positions
         for good_point in self.good_points_group:
             state_list.append(good_point.lane)  # X-coordinate of good point
             state_list.append(good_point.rect.y/100)  # Y-coordinate of good point
-        if (len(state_list)<21):
+        while (len(state_list)<41):
             state_list.append(-1)  
             state_list.append(-1)
 
