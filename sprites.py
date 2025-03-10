@@ -23,7 +23,7 @@ class Car(pygame.sprite.Sprite):
     def update(self):
         self.rect.x = self.lane * LANEWIDTH + (LANEWIDTH - self.rect.width) // 2  # Center in lane
         self.rect.y = WINDOW_HEIGHT - self.rect.height - 110  # Position at bottom with some padding
-        print(f"Car position: x={self.rect.x}")#, y={self.rect.y}
+        #print(f"Car position: x={self.rect.x}")#, y={self.rect.y}
     
     def draw(self, surface):
         surface.blit(self.image, self.rect)

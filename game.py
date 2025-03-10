@@ -13,7 +13,7 @@ import torch
 pygame.init()
 
 # Constants
-FPS = 120
+FPS = 60
 WINDOWWIDTH = 400
 WINDOWHEIGHT = 800
 MODEL_PATH = "model/DQN.pth"  # Ensure cross-platform path
