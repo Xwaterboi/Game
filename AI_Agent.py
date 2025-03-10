@@ -1,14 +1,16 @@
 import pygame
+import numpy as np
 
 class AI_Agent:
     
     def __init__(self) -> None:
         pass
 
-    def getAction (self, events):#, state
-        for event in events:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
-                    return -1
-                if event.key == pygame.K_RIGHT:
-                    return 1
+    def getAction (self, q_values):#, state
+        """Get the action based on the DQN output (3 Q-values)."""
+        #if len(q_values) != 3:
+         #   raise ValueError("Expected 3 Q-values (Left, Stay, Right).")
+
+        action_index = np.argmax(q_values)
+
+        return action_index
