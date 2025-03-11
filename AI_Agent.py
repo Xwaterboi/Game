@@ -16,7 +16,8 @@ class AI_Agent:
         return final
     
     def getAction(self, state, epoch = 0, events= None, train = True):
-        """Get the action based on the DQN output."""
+        """Get the action based 
+        on the DQN output."""
         # self.dqn_model.eval()
         # with torch.no_grad():
         #     state_tensor = torch.tensor(state, dtype=torch.float32, device=self.device).unsqueeze(0)
