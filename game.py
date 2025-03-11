@@ -60,7 +60,7 @@ class Game:
         win = False
 
         while run:
-            dt = clock.tick(FPS)
+            #dt = clock.tick(FPS)
             pygame.event.pump()
 
             for event in pygame.event.get():
